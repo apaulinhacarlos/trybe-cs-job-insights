@@ -54,31 +54,29 @@ def get_min_salary(path):
     return min(min_salary)
 
 
-# Parei aqui
 def keys_in_the_dict(job):
     if "min_salary" not in job or "max_salary" not in job:
-        return False
+        raise ValueError
 
 
 def is_number(job, salary):
     if not (
         isinstance(job["min_salary"], int)
-        or isinstance(job["max_salary"], int)
-        or isinstance(salary, int)
+        and isinstance(job["max_salary"], int)
+        and isinstance(salary, int)
     ):
-        return False
+        raise ValueError
 
 
 def range_is_valid(job):
     if job["min_salary"] > job["max_salary"]:
-        return False
+        raise ValueError
 
 
 def matches_salary_range(job, salary):
-    if not (
-        keys_in_the_dict(job) or is_number(job, salary) or range_is_valid(job)
-    ):
-        raise ValueError
+    keys_in_the_dict(job)
+    is_number(job, salary)
+    range_is_valid(job)
 
     if job["min_salary"] <= salary <= job["max_salary"]:
         return True
